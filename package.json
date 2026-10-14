@@ -1,0 +1,19 @@
+{
+  "name": "linkcheck-web-toolkit",
+  "version": "0.1.0",
+  "description": "Dependency-free open-source website link checker, auditor, CLI, and self-hosted dashboard",
+  "type": "module",
+  "bin": { "linkcheck": "./bin/linkcheck.js" },
+  "exports": { ".": "./src/audit.js" },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test tests/*.test.js",
+    "check": "node bin/linkcheck.js --help"
+  },
+  "engines": { "node": ">=20" },
+  "keywords": ["link-checker", "website-audit", "broken-links", "seo", "crawler", "cli"],
+  "license": "MIT",
+  "files": ["src", "bin", "public", "README.md", "LICENSE", "SECURITY.md", "action.yml"],
+  "private": false
+}

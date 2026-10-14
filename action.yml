@@ -1,0 +1,35 @@
+name: LinkCheck Website Audit
+branding:
+  icon: link
+  color: green
+description: Crawl a public website and fail a workflow when broken links are found.
+inputs:
+  url:
+    description: Public website URL to audit
+    required: true
+  max-pages:
+    description: Maximum number of internal pages to crawl
+    required: false
+    default: '12'
+  max-links:
+    description: Maximum number of links to check
+    required: false
+    default: '100'
+  check-external:
+    description: Whether to check external links (true or false)
+    required: false
+    default: 'true'
+runs:
+  using: composite
+  steps:
+    - name: Audit website
+      shell: bash
+      env:
+        TARGET: ${{ inputs.url }}
+        MAX_PAGES: ${{ inputs.max-pages }}
+        MAX_LINKS: ${{ inputs.max-links }}
+        CHECK_EXTERNAL: ${{ inputs.check-external }}
+      run: |
+        args=("$TARGET" --max-pages "$MAX_PAGES" --max-links "$MAX_LINKS" --output "$RUNNER_TEMP/linkcheck-report.json")
+        if [[ "$CHECK_EXTERNAL" == "false" ]]; then args+=(--no-external); fi
+        node "$GITHUB_ACTION_PATH/bin/linkcheck.js" "${args[@]}"
