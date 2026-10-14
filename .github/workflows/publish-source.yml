@@ -26,7 +26,7 @@ jobs:
           test -f "$RUNNER_TEMP/linkcheck-source/linkcheck/package.json"
           cp -a "$RUNNER_TEMP/linkcheck-source/linkcheck/." .
           rm -f "$ARCHIVE"
-          rm -f .github/workflows/publish-source.yml
+          rm -f .github/workflows/ci.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
